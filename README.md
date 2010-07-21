@@ -1,15 +1,11 @@
 leafstorm adds macros to your C file to replace lines of code with a repeating word.
 
-eg.
-    leafstorm DOCKS homework.c
-
 Here's an example:
 
     #include <stdio.h>
     #include <stdlib.h>
 
     int test(char **, char*);
-    void usage();
 
     int main(int argc, char **argv) {
         if (argc == 2) {
@@ -83,3 +79,5 @@ After running `leafstorm WA sample.c > out.c`:
     WAWAWAWAWAWAWAWAWAWAWAWAWAWAWAWAWAWAWA
     WAWAWAWAWAWA
     WAWAWAWAWAWA
+
+Beautiful!
