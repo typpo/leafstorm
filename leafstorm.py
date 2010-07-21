@@ -14,33 +14,24 @@ def main():
     n = 1
     d = {}
     output = []
-    def record(chunk):
-        if chunk not in d:
-            d[chunk] = sys.argv[1]*n
-            output.insert(0, '#define %s %s' % (d[chunk], chunk))
-        output.append(d[chunk])
 
     # loop through chunks of code
-    blocks = s.split('\([.\n]*?\)')
+    blocks = s.split('\n')
     for block in blocks:
         if len(block) < 1:
             continue
 
         if block[0] == '#':
             # preserve preprocessor instructions
-            lines = block.split('\n')
-            for line in lines:
-                line = line.strip()
-                if len(line) > 0 and line[0] == '#':
-                    output.append(line)
-                elif len(line) > 0:
-                    record(line)
-                    n+=1
+            output.append(block)
         else:
             # add line
-            line = re.sub('[\t\n]+', '', block).strip()
+            line = re.sub('[\t]+', '', block).strip()
             if len(line) > 0:
-                record('(' + line + ')')
+                if line not in d:
+                    d[line] = sys.argv[1]*n
+                    output.insert(0, '#define %s %s' % (d[line], line))
+                output.append(d[line])
                 n+=1
 
     # ouput
